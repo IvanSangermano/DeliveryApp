@@ -13,13 +13,13 @@ const RegisterStyles = StyleSheet.create({
     },
     form: {
         width: '100%',
-        height: '70%',
+        height: '72%',
         backgroundColor: 'white',
         position: 'absolute',
         bottom: 0,
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
-        padding: 30
+        padding: 30,
     },
     formText:{
         fontWeight: 'bold',
