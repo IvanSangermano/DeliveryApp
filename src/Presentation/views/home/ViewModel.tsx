@@ -14,14 +14,11 @@ const HomeViewModel = () => {
         password: '',
     });
 
-    console.log('Usuario sesion: ', JSON.stringify(user))
-
     const onChange = (property: string, value: any) => {
         setValues({ ...values, [property]: value})
     }
     
     const login = async () => {
-        console.log('isvalidform',isValidForm())
         if(isValidForm()){
             const response = await LoginAuthUseCase(values.email, values.password)
             console.log('RESPONSE ', JSON.stringify(response))
