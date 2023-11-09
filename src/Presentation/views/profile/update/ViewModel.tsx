@@ -1,22 +1,19 @@
 import React, { useContext, useState } from 'react'
-import { RegisterWithImageAuthUseCase } from '../../../Domain/useCases/auth/RegisterWithImageAuth'
 import * as ImagePicker from 'expo-image-picker'
-import { UserContext } from '../../context/UserContext'
+import { UpdateUserUseCase } from '../../../../Domain/useCases/user/UpdateUser'
+import { UpdateUserWithImageUseCase } from '../../../../Domain/useCases/user/UpdateUserWithImage'
+import { User } from '../../../../Domain/entities/User'
+import { ResponseAPIDelivery } from '../../../../Data/sources/remote/models/ResponseApiDelivery'
+import { UserContext } from '../../../context/UserContext'
 
-const RegisterViewModel = () => {
+const ProfileUpdateViewModel = (user: User) => {
+
     const [file, setFile] = useState<ImagePicker.ImagePickerAsset>()
     const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
     const [loading, setLoading] = useState(false)
-    const {user, saveUserSession} = useContext( UserContext )
-    const [values, setValues] = useState({
-        name:'',
-        lastname:'',
-        email:'',
-        phone:'',
-        image:'',
-        password:'',
-        confirmPassword:'',
-    })
+    const [values, setValues] = useState(user)
+    const { saveUserSession } = useContext(UserContext)
 
 
     const pickImage = async () => {
@@ -49,15 +46,26 @@ const RegisterViewModel = () => {
         setValues({...values, [property]: value})
     }
 
-    const register = async () => {
+    const onChangeInfoUpdate = (name: string, lastname: string, phone: string) => {
+      setValues({...values, name, lastname, phone})
+  }
+
+    const update = async () => {
       if(isValidForm()){
         setLoading(true)
-        //const response = await RegisterAuthUseCase(values)
-        const response = await RegisterWithImageAuthUseCase(values, file!)
+        let response = {} as ResponseAPIDelivery
+
+        if(values.image?.includes('https://')) {
+          response = await UpdateUserUseCase(values) 
+        } else {
+          response = await UpdateUserWithImageUseCase(values, file!) 
+        }
+
         setLoading(false)
         console.log('Result: ' + JSON.stringify(response))
         if(response.success){
-          await saveUserSession(response.data)
+          saveUserSession(response.data)
+          setSuccessMessage(response.message)
         }else {
           setErrorMessage(response.message)
         }
@@ -73,44 +81,25 @@ const RegisterViewModel = () => {
         setErrorMessage('Ingresa tu apellido')
         return false
       }
-      if( values.email == '') {
-        setErrorMessage('Ingresa tu email')
-        return false
-      }
       if( values.phone == '') {
         setErrorMessage('Ingresa tu telefono')
         return false
       }
-      if( values.password == '') {
-        setErrorMessage('Ingresa la contraseña')
-        return false
-      }
-      if( values.confirmPassword == '') {
-        setErrorMessage('Ingresa la confirmacion de la contraseña')
-        return false
-      }
-      if(values.password !== values.confirmPassword){
-        setErrorMessage('Las contraseñas no coinciden')
-        return false
-      }
-      if(values.image === ''){
-        setErrorMessage('Seleccione una imagen')
-        return false
-      }
-
       return true;
     }
 
   return {
     ...values,
     onChange,
-    register,
+    onChangeInfoUpdate,
+    update,
     pickImage,
     takePhoto,
     errorMessage,
     user,
-    loading
+    loading,
+    successMessage
   }
 }
 
-export default RegisterViewModel
+export default ProfileUpdateViewModel

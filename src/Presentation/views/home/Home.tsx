@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Image, Text, TextInput, ToastAndroid, StyleSheet, TouchableOpacity } from 'react-native';
 import { RoundedButton } from '../../../Presentation/components/RoundedButton';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
+import { StackScreenProps } from '@react-navigation/stack'
 import { RootStackParamList } from '../../../../App';
 import useViewModel from './ViewModel';
 import { CustomTextInput } from '../../components/CustomTextInput';
@@ -19,7 +18,7 @@ export const HomeScreen = ({navigation, route}: Props) => {
   }, [errorMessage])
 
   useEffect(() => {
-    if(user?.id !== null && user?.id !== undefined){
+    if(user?.id !== null && user?.id !== undefined && user?.id !== ''){
       if(user.roles?.length! > 1){
         navigation.replace('RolesScreen')
       } else{

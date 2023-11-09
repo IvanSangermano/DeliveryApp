@@ -1,9 +1,9 @@
-import React from 'react'
-import { useUserLocal } from '../../hooks/useUserLocal';
+import React, { useContext } from 'react'
+import { UserContext } from '../../context/UserContext';
 
 const RolesViewModel = () => {
 
-  const { user } = useUserLocal()
+  const { user } = useContext(UserContext)
 
   return {
     user

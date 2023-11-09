@@ -12,6 +12,7 @@ export class UserLocalRepositoryImpl implements UserLocalRepository {
     async getUser(): Promise<User> {
         const { getItem } = LocalStorage()
         const data = await getItem('user')
+        console.log(data)
         const user: User = JSON.parse(data as any)
         return user
     }
