@@ -15,7 +15,7 @@ export const ClientTabsNavigator = () => {
         options={{
           title: 'Categorias',
           tabBarLabel: 'Categorias',
-          tabBarIcon: ({color}) => (
+          tabBarIcon: () => (
             <Image
               source={require('../../../assets/list.png')}
               style={{width: 25, height: 25}}
@@ -29,7 +29,7 @@ export const ClientTabsNavigator = () => {
         options={{
           title: 'Pedidos',
           tabBarLabel: 'Pedidos',
-          tabBarIcon: ({color}) => (
+          tabBarIcon: () => (
             <Image
               source={require('../../../assets/orders.png')}
               style={{width: 25, height: 25}}
@@ -44,7 +44,7 @@ export const ClientTabsNavigator = () => {
           title: 'Perfil',
           tabBarLabel: 'Perfil',
           headerShown: false,
-          tabBarIcon: ({color}) => (
+          tabBarIcon: () => (
             <Image
               source={require('../../../assets/user_menu.png')}
               style={{width: 25, height: 25}}

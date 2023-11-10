@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { View, Image, Text, TextInput, ToastAndroid, StyleSheet, TouchableOpacity } from 'react-native';
 import { RoundedButton } from '../../../Presentation/components/RoundedButton';
 import { StackScreenProps } from '@react-navigation/stack'
-import { RootStackParamList } from '../../../../App';
 import useViewModel from './ViewModel';
 import { CustomTextInput } from '../../components/CustomTextInput';
 import styles from './Styles'
+import { RootStackParamList } from '../../navigator/MainStackNavigator';
 
 interface Props extends StackScreenProps<RootStackParamList, 'HomeScreen'>{}
 
