@@ -1,37 +1,38 @@
 import React from 'react'
-import { Category } from '../../../../../Domain/entities/Category'
 import { View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { CategoryStackParamList } from '../../../../navigator/AdminCategoryNavigator';
+import { Product } from '../../../../../Domain/entities/Product';
+import { ProductStackParamList } from '../../../../navigator/AdminProductNavigator';
+import { Category } from '../../../../../Domain/entities/Category';
 
 interface Props {
+    product: Product,
     category: Category,
-    remove: (id: string) => void
+    remove: (product: Product) => void
 }
 
-export const AdminCategoryListItem = ({category, remove}: Props) => {
+export const AdminProductListItem = ({product, category, remove}: Props) => {
 
-    const navigation = useNavigation<StackNavigationProp<CategoryStackParamList>>()
-
+    const navigation = useNavigation<StackNavigationProp<ProductStackParamList>>()
+    
     return (
         <TouchableOpacity
-            onPress={() => navigation.navigate('AdminProductNavigator', {category: category})}
+            // onPress={() => navigation.navigate('AdminProductNavigator', {category: category})}
         >
             <View style={ styles.container }>
                 <Image
-                    source={{uri: category.image}}
+                    source={{uri: product.image1}}
                     style={styles.image}
                 />
                 <View style={styles.info}>
-                    <Text style={styles.title}>{category.name}</Text>
-                    <Text style={styles.description}>{category.description}</Text>
+                    <Text style={styles.title}>{product.name}</Text>
+                    <Text style={styles.description}>{product.description}</Text>
+                    <Text style={styles.price}>{product.price}$</Text>
                 </View>
                 <View style={styles.actionContainer}>
                     <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate('AdminCategoryUpdateScreen', {category})
-                        }}
+                        onPress={() => navigation.navigate('AdminProductUpdateScreen', {category: category, product: product})}
                     >
                         <Image
                             style={styles.actionImage}
@@ -39,7 +40,7 @@ export const AdminCategoryListItem = ({category, remove}: Props) => {
                         />
                     </TouchableOpacity>
                     <TouchableOpacity 
-                        onPress={() => remove(category.id!)}
+                        onPress={() => remove(product)}
                     >
                         <Image
                             style={{...styles.actionImage, marginTop: 8}}
@@ -57,9 +58,9 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         flexDirection: 'row',
-        height: 70,
+        height: 100,
         marginHorizontal: 20,
-        marginTop: 10
+        alignItems: 'center'
     },
     image: {
         width: 60,
@@ -79,6 +80,11 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 2
     },
+    price: {
+        color: 'green',
+        fontSize: 12,
+        fontWeight: 'bold'
+    },  
     actionContainer: {
        marginRight: 35 
     },
@@ -91,5 +97,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#F2F2F2',
         flex: 1,
         marginHorizontal: 15
-    }
+    },
 })

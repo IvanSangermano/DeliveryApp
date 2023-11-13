@@ -6,11 +6,13 @@ import { AdminCategoryCreateScreen } from '../../../src/Presentation/views/admin
 import { AdminCategoryUpdateScreen } from '../../../src/Presentation/views/admin/category/update/CategoryUpdate';
 import { AdminCategoryListScreen } from '../views/admin/category/list/CategoryList';
 import { Image, TouchableOpacity } from 'react-native';
+import { AdminProductNavigator } from './AdminProductNavigator';
 
 export type CategoryStackParamList = {
     AdminCategoryListScreen: undefined,
     AdminCategoryCreateScreen: undefined,
     AdminCategoryUpdateScreen: {category: Category},
+    AdminProductNavigator: {category: Category}
 }
 
 const Stack = createNativeStackNavigator<CategoryStackParamList>();
@@ -52,6 +54,10 @@ export const AdminCategoryNavigator = () => {
                     headerShown: true,
                     title: 'Modificar categoria'
                 }}
+            />
+             <Stack.Screen 
+                name='AdminProductNavigator' 
+                component={AdminProductNavigator} 
             />
         </Stack.Navigator>
     </CategoryState>

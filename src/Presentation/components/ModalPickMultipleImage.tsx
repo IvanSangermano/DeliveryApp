@@ -3,13 +3,14 @@ import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
 import { RoundedButton } from './RoundedButton';
 
 interface Props {
-    openGallery: () => void,
-    openCamera: () => void,
+    openGallery: (numberImage: number) => void,
+    openCamera: (numberImage: number) => void,
+    numberImage: number,
     modalUseState: boolean,
     setModalUseState: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ModalPickImage = ({ openGallery, openCamera, setModalUseState, modalUseState }:Props) => {
+export const ModalPickMultipleImage = ({ openGallery, openCamera, setModalUseState, modalUseState, numberImage }:Props) => {
     return (
       <View style={styles.centeredView}>
         <Modal
@@ -17,6 +18,7 @@ export const ModalPickImage = ({ openGallery, openCamera, setModalUseState, moda
           transparent={true}
           visible={modalUseState}
           onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
             setModalUseState(!modalUseState);
           }}>
           <View style={styles.centeredView}>
@@ -25,7 +27,7 @@ export const ModalPickImage = ({ openGallery, openCamera, setModalUseState, moda
                 <View style={styles.buttonContainer}>
                     <RoundedButton
                         onPress={() => {
-                            openGallery()
+                            openGallery(numberImage)
                             setModalUseState(false)
                         }}
                         text='Galeria'
@@ -34,7 +36,7 @@ export const ModalPickImage = ({ openGallery, openCamera, setModalUseState, moda
                 <View style={styles.buttonContainer}>
                     <RoundedButton
                         onPress={() => {
-                            openCamera()
+                            openCamera(numberImage)
                             setModalUseState(false)
                         }}
                         text='Camara'
