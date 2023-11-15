@@ -1,4 +1,3 @@
-import React from 'react'
 import { ProductRepositoryImpl } from '../../../Data/repositories/ProductRepository'
 
 const { getProductsByCategory } = new ProductRepositoryImpl()

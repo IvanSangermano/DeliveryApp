@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     },  
     divider: {
         height: 3,
-        backgroundColor: '#F2F2F2',
+        backgroundColor: '#E8E8E8',
         flex: 1,
         marginHorizontal: 15
     },

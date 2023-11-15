@@ -33,7 +33,7 @@ const ClientProductDetailStyles = StyleSheet.create({
     },
     divider: {
         height: 1,
-        backgroundColor: '#F2F2F2',
+        backgroundColor: '#E8E8E8',
         marginTop: 15
     },
     name: {
@@ -51,34 +51,40 @@ const ClientProductDetailStyles = StyleSheet.create({
     productActions: {
         flexDirection: "row",
         height: 70,
-        backgroundColor: '#F2F2F2',
+        backgroundColor: '#E8E8E8',
         paddingHorizontal: 30
     },
     actionLess: {
         backgroundColor: '#3A3A3A',
-        paddingVertical: 5,
-        paddingHorizontal: 10,
+        height: 50,
+        width: 30,
+        justifyContent: "center",
+        alignItems: "center",
         alignSelf: "center",
         borderBottomLeftRadius: 10,
         borderTopLeftRadius: 10
     },
     actionAdd: {
         backgroundColor: '#3A3A3A',
-        paddingVertical: 5,
-        paddingHorizontal: 10,
+        height: 50,
+        width: 30,
+        justifyContent: "center",
+        alignItems: "center",
         alignSelf: "center",
         borderBottomRightRadius: 10,
         borderTopRightRadius: 10
     },
+    quantity: {
+        backgroundColor: '#3A3A3A',
+        height: 50,
+        width: 60,
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "center"
+    },
     actionText: {
         color: 'white',
         fontSize: 15
-    },
-    quantity: {
-        backgroundColor: '#3A3A3A',
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        alignSelf: "center"
     },
     buttonAdd: {
         flex: 1,

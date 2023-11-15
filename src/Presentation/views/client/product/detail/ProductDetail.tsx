@@ -13,7 +13,7 @@ interface Props extends StackScreenProps<ClientStackParamList, 'ClientProductDet
 export const ClientProductDetailScreen = ({navigation, route}: Props) => {
     
     const {product} = route.params
-    const { productImageList, quantity, price, addItem, removeItem} = useViewModel(product)
+    const { shoppingBag ,productImageList, quantity, price, addToBag, addItem, removeItem} = useViewModel(product)
 
     const width = Dimensions.get('window').width
     const height = Dimensions.get('window').height
@@ -75,7 +75,7 @@ export const ClientProductDetailScreen = ({navigation, route}: Props) => {
                     </TouchableOpacity>
 
                     <View style={styles.buttonAdd}>
-                        <RoundedButton text='AGREGAR' onPress={() => {}}/>
+                        <RoundedButton text='AGREGAR AL PEDIDO' onPress={() => addToBag()}/>
                     </View>
                 </View>
             </View>

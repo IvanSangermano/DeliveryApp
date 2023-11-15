@@ -8,12 +8,20 @@ interface Props {
     keyboardType: KeyboardType,
     secureTextEntry?: boolean,
     property: string,
+    editable?: boolean,
     onChangeText: (property: string, value: any) => void
 }
 
 
 export const CustomTextInput = ({
-    image, placeholder, value, keyboardType, secureTextEntry = false, property, onChangeText
+    image, 
+    placeholder, 
+    value, 
+    keyboardType, 
+    secureTextEntry = false, 
+    editable = true, 
+    property, 
+    onChangeText
 }: Props) => {
   return (
     <View style={styles.formInput}>
@@ -28,6 +36,7 @@ export const CustomTextInput = ({
             value={value}
             onChangeText={text => onChangeText(property, text)}
             secureTextEntry={secureTextEntry}
+            editable={editable}
         />
     </View>
   )

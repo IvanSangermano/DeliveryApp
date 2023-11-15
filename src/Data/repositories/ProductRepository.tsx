@@ -55,10 +55,7 @@ export class ProductRepositoryImpl implements ProductRepository{
             return Promise.resolve(apiError)
         }
     }
-    
-    //TO DO: en el update con imagen corroborar que se hayan ingresado 3 imagenes (posible opcion, 
-    //pasar las imagenes que no esten en nulas y reflejar eso en el backend no subiendolo al firebase 
-    //y almacenandolo como nulo)
+
     async updateWithImage(product: Product, files: ImagePickerAsset[]): Promise<ResponseAPIDelivery> {
         try {
             let data = new FormData()
