@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useState } from 'react'
-import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Dimensions, Image, Text, TouchableOpacity, View, ToastAndroid } from 'react-native';
 import { ClientStackParamList } from '../../../../navigator/ClientStackNavigator'
 import styles from './Styles'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -13,10 +13,16 @@ interface Props extends StackScreenProps<ClientStackParamList, 'ClientProductDet
 export const ClientProductDetailScreen = ({navigation, route}: Props) => {
     
     const {product} = route.params
-    const { shoppingBag ,productImageList, quantity, price, addToBag, addItem, removeItem} = useViewModel(product)
+    const { shoppingBag ,productImageList, quantity, price, responseMessage, addToBag, addItem, removeItem} = useViewModel(product)
 
     const width = Dimensions.get('window').width
     const height = Dimensions.get('window').height
+
+    useEffect(() => {
+        if(responseMessage !== ''){
+            ToastAndroid.show(responseMessage, ToastAndroid.LONG)
+        }
+    }, [responseMessage])
 
     return (
         <View style={styles.container}>

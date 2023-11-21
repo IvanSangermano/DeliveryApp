@@ -22,13 +22,6 @@ export const RegisterScreen = ({navigation, route}: Props) => {
         if(errorMessage != '') ToastAndroid.show(errorMessage, ToastAndroid.LONG)
     }, [errorMessage])
     
-    useEffect(() => {
-        if(user?.id !== null && user?.id !== undefined){
-          navigation.replace('ClientTabsNavigator')
-        }
-      }, [user])
-      
-
     return (
         <View style={styles.container}>
             <Image 

@@ -9,7 +9,7 @@ const ClientProductDetailViewModel = (product: Product) => {
         product.image2,
         product.image3
     ]
-
+    const [responseMessage, setResponseMessage] = useState('')
     const [quantity, setQuantity] = useState(0)
     const [price, setPrice] = useState(0.0)
     const { shoppingBag, saveItem } = useContext(ShoppingBagContext)
@@ -29,6 +29,7 @@ const ClientProductDetailViewModel = (product: Product) => {
         if(quantity > 0) {
             product.quantity = quantity
             saveItem(product)
+            setResponseMessage('Item agregado al carrito')
         }
     }
 
@@ -44,6 +45,7 @@ const ClientProductDetailViewModel = (product: Product) => {
         quantity,
         price,
         shoppingBag,
+        responseMessage,
         addItem,
         addToBag,
         removeItem

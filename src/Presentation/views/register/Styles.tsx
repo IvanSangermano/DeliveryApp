@@ -34,6 +34,9 @@ const RegisterStyles = StyleSheet.create({
     logoImage: {
         width:100,
         height:100,
+        borderRadius: 100,
+        borderColor: 'white',
+        borderWidth: 2
     },
     logoText:{
         color: 'white',

@@ -71,4 +71,4 @@ const CategoryState = ({children}: any) => {
         {children}
       </CategoryProvider>
     )
-  }
+}

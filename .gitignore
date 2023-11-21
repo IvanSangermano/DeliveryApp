@@ -33,3 +33,7 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+#Others
+GoogleMapApiKey.tsx
+app.json

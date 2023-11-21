@@ -7,7 +7,18 @@ import { ApiDelivery, ApiDeliveryForImage } from "../sources/remote/api/ApiDeliv
 import mime from "mime";
 
 export class UserRespositoryImpl implements UserRespository {
-    
+
+    async getDeliveryMan(): Promise<User[]> {
+        try {
+            const response = await ApiDelivery.get<User[]>('/users/findDeliveryMen')
+            return Promise.resolve(response.data)
+        } catch (error) {
+            let e = (error as AxiosError);
+            console.log('ERROR: ', JSON.stringify(e.response?.data))
+            return Promise.resolve([])
+        }
+    }
+
     async update(user: User): Promise<ResponseAPIDelivery> {
         try {
             const response = await ApiDelivery.put<ResponseAPIDelivery>('/users/updateWithoutImage', user)

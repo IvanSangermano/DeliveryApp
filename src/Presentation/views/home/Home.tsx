@@ -21,8 +21,10 @@ export const HomeScreen = ({navigation, route}: Props) => {
     if(user?.id !== null && user?.id !== undefined && user?.id !== ''){
       if(user.roles?.length! > 1){
         navigation.replace('RolesScreen')
-      } else{
+      } else if(user.roles![0].name === "CLIENTE"){
         navigation.replace('ClientTabsNavigator')
+      } else if(user.roles![0].name === "REPARTIDOR"){
+        navigation.replace('DeliveryTabsNavigator')
       }
     }
   }, [user])

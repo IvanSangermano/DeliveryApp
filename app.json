@@ -30,7 +30,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.ivan.appdeliveryreactnative",
       "config": {
-        "googleMapsApiKey": "AIzaSyDYpnkq_wK4BSmIyxl1qVf-8uPfaZUwF1k"
+        "googleMapsApiKey": "AIzaSyAePbFOHCKJqGEaf2T0S301LiacwbDJbCk"
       },
       "infoPlist": {
         "UIBackgroundModes": [
@@ -47,7 +47,7 @@
       "package": "com.ivan.appdeliveryreactnative",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDYpnkq_wK4BSmIyxl1qVf-8uPfaZUwF1k"
+          "apiKey": "AIzaSyAePbFOHCKJqGEaf2T0S301LiacwbDJbCk"
         }
       },
       "permissions": [
