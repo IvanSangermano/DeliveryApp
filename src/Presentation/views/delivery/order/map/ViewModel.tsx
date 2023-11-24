@@ -37,6 +37,7 @@ const DeliveryOrderMapViewModel = (order: Order) => {
         
         const requestPermissions = async () => {
             const foreground = await Location.requestForegroundPermissionsAsync()   //Await permissions request
+            
             if(foreground.granted) { //accept permissions
                 startForegroundUpdate()
             }
@@ -87,7 +88,7 @@ const DeliveryOrderMapViewModel = (order: Order) => {
                     setPosition(location?.coords) //Location setting
                     const newCamera: Camera = {
                         center: {latitude: location?.coords.latitude!, longitude: location?.coords.longitude!},
-                        zoom: 18,
+                        zoom: 16,
                         heading: 0,
                         pitch: 0,
                         altitude: 0

@@ -62,7 +62,6 @@ const ProfileUpdateViewModel = (user: User) => {
         }
 
         setLoading(false)
-        console.log('Result: ' + JSON.stringify(response))
         if(response.success){
           saveUserSession(response.data)
           setSuccessMessage(response.message)

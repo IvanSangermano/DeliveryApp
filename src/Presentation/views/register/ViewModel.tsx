@@ -55,7 +55,6 @@ const RegisterViewModel = () => {
         //const response = await RegisterAuthUseCase(values)
         const response = await RegisterWithImageAuthUseCase(values, file!)
         setLoading(false)
-        console.log('Result: ' + JSON.stringify(response))
         if(response.success){
           await saveUserSession(response.data)
         }else {

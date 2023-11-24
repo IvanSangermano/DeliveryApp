@@ -13,9 +13,11 @@ const AdminOrderDetailViewModel = (order: Order) => {
     const [total, setTotal] = useState(0.0)
     const [deliveryMen, setDeliveryMen] = useState<User[]>([])
     const [responseMessage, setResponseMessage] = useState('')
+
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
     const [items, setItems] = useState<DropDownProps[]>([]);
+    
     const {updateToDispatched} = useContext(OrderContext)
 
     useEffect(() => {

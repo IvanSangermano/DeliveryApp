@@ -38,6 +38,7 @@ export const ClientOrderMapScreen = ({navigation, route}: Props) => {
 
   return (
     <View style={styles.container}>
+     
       <MapView
           ref={ mapRef }
           customMapStyle={stylesmap}
@@ -50,7 +51,7 @@ export const ClientOrderMapScreen = ({navigation, route}: Props) => {
           <Marker
             coordinate={position}
           >
-            <Image
+             <Image
               style={styles.markerImage}
               source={require('../../../../../../assets/delivery.png')}
             />

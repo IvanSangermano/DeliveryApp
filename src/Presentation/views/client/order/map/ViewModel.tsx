@@ -1,21 +1,13 @@
 import * as Location from 'expo-location'
-import React, {useContext, useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import MapView, { Camera } from 'react-native-maps'
 import { Order } from '../../../../../Domain/entities/Order'
-import { OrderContext } from '../../../../context/OrderContext'
 import socket from '../../../../utils/SocketIO'
 
 const ClientOrderMapViewModel = (order: Order) => {
-    const { updateToDelivered } = useContext(OrderContext)
-
     const [messagePermissions, setMessagePermissions] = useState('')
     const [responseMessage, setResponseMessages] = useState('')
 
-    const [refPoint, setRefPoint] = useState({
-        name: '',
-        latitude: 0.0,
-        longitude: 0.0
-    })
     const [origin, setOrigin] = useState({
         latitude: 0.0,
         longitude: 0.0
