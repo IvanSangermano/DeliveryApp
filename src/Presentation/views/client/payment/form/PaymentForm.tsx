@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
-import { View, Text, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, Image, Pressable } from 'react-native';
+import { View, Image, Pressable } from 'react-native';
 import styles from './Styles'
 import useViewModel from './ViewModel'
 import CreditCard from 'react-native-credit-card-form-ui';
-import { RoundedButton } from '../../../../components/RoundedButton';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { CustomTextInput } from '../../../../components/CustomTextInput';
 import { StackScreenProps } from '@react-navigation/stack';

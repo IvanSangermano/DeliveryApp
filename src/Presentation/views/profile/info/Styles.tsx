@@ -22,6 +22,18 @@ const ProfileInfoStyles = StyleSheet.create({
         width: 40,
         height: 40,
     },
+    exchange: {
+        backgroundColor: 'white',
+        position: 'absolute',
+        borderRadius: 50,
+        padding:8,
+        right: 15,
+        top: 80,
+    },
+    imageExchange:{
+        width: 23,
+        height: 23,
+    },
     form: {
         width: '100%',
         height: '40%',

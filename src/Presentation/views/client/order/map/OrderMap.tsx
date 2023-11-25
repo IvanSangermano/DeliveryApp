@@ -14,7 +14,7 @@ interface Props extends StackScreenProps<ClientOrderStackParamList, 'ClientOrder
 
 export const ClientOrderMapScreen = ({navigation, route}: Props) => {
   const { order } = route.params
-  const {socket, messagePermissions, responseMessage ,position, mapRef, origin, destination} = useViewModel(order)
+  const {positionOnce, socket, messagePermissions, responseMessage , position, mapRef, origin} = useViewModel(order)
 
   useEffect(() => {
     if(messagePermissions != ''){
@@ -69,12 +69,12 @@ export const ClientOrderMapScreen = ({navigation, route}: Props) => {
           </Marker>
         }
         {
-          origin.latitude !== 0.0 &&
+          (origin.latitude !== 0.0 && positionOnce.latitude !== 0.0) &&
           <MapViewDirections
             origin={origin}
-            destination={destination}
+            destination={positionOnce}
             apikey={GOOGLE_MAPS_APIKEY}
-            strokeWidth={4}
+            strokeWidth={5}
             strokeColor="orange"
           />
         }

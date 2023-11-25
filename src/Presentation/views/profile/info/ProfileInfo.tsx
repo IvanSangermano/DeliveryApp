@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import useViewModel from './ViewModel'
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -6,6 +6,7 @@ import styles from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import { RoundedButton } from '../../../components/RoundedButton';
 import { RootStackParamList } from '../../../navigator/MainStackNavigator';
+import { UserContext } from '../../../context/UserContext';
 
 export const ProfileInfoScreen = () => {
 
@@ -29,13 +30,26 @@ export const ProfileInfoScreen = () => {
                 style={styles.logout}
                 onPress={() => {
                     removeUserSession()
+                    navigation.replace('HomeScreen')
                 }}>
                 <Image 
                     source={require('../../../../../assets/logout.png')} 
                     style={styles.imageLogout}
                 />
+            </TouchableOpacity> 
+            { user.roles!.length > 1 &&
+            <TouchableOpacity
+                style={styles.exchange}
+                onPress={() => {
+                    navigation.navigate('RolesScreen')
+                }}>
+                <Image 
+                    source={require('../../../../../assets/exchange.png')} 
+                    style={styles.imageExchange}
+                />
             </TouchableOpacity>  
-   
+            }
+
             <View style={styles.logoContainer}>
                 { user?.image !== '' &&
                     <Image

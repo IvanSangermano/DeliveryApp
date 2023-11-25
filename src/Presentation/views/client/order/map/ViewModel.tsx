@@ -9,14 +9,14 @@ const ClientOrderMapViewModel = (order: Order) => {
     const [responseMessage, setResponseMessages] = useState('')
 
     const [origin, setOrigin] = useState({
+        latitude: order.address?.lat!,
+        longitude: order.address?.lng!
+    })
+    const [position, setPosition] = useState({
         latitude: 0.0,
         longitude: 0.0
     })
-    const [destination, setDestionation] = useState({
-        latitude: order.address?.lat!,
-        longitude: order.address?.lng!,
-    })
-    const [position, setPosition] = useState({
+    const [positionOnce, setPositionOnce] = useState({
         latitude: 0.0,
         longitude: 0.0
     })
@@ -41,6 +41,14 @@ const ClientOrderMapViewModel = (order: Order) => {
         requestPermissions();
     }, [])
 
+    useEffect(() => {
+        if(position.latitude != 0.0 && position.longitude != 0.0){
+            if(positionOnce.latitude === 0.0 && positionOnce.longitude === 0.0) {
+                setPositionOnce(position)
+            }
+        }
+    }, [position])
+    
     const startForegroundUpdate = async () => {
         const { granted } = await Location.getForegroundPermissionsAsync() //Location Permissions
     
@@ -50,10 +58,6 @@ const ClientOrderMapViewModel = (order: Order) => {
         }
 
         const location = await Location.getLastKnownPositionAsync() //Location when opening the map
-        setOrigin({
-            latitude: location?.coords.latitude!,
-            longitude: location?.coords.longitude!
-        })
         const newCamera: Camera = {
             center: {latitude: location?.coords.latitude!, longitude: location?.coords.longitude!},
             zoom: 15,
@@ -71,8 +75,8 @@ const ClientOrderMapViewModel = (order: Order) => {
         position,
         mapRef,
         origin,
-        destination,
-        socket
+        socket,
+        positionOnce
     }
 }
 
