@@ -9,6 +9,7 @@ import { CreatePaymentStripeUseCase } from '../../../../../Domain/useCases/strip
 import stripe from 'react-native-stripe-client'
 import { ShoppingBagContext } from '../../../../context/ShoppingBagContex';
 import { UserContext } from '../../../../context/UserContext';
+import { STRIPE_CLIENT_KEY } from '../../../../contants/StripeClientKey';
 
 interface DropDownProps {
   label: string,
@@ -29,6 +30,7 @@ const ClientPaymentFormViewModel = () => {
   });
   const [identificationTypeList, setIdentificationTypeList] = useState<IdentificationType[]>([])
   const [cardToken, setCardToken] = useState<ResponseMercadoPagoCardToken>();
+  const [mercadoPagoOption, setMercadoPagoOption] = useState(true);
   
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -39,14 +41,14 @@ const ClientPaymentFormViewModel = () => {
 
 
   const creditCardRef = useRef() as any;
-  const stripeClient = stripe("pk_test_51OG0uOHVZgNZiwCsCeqYrsyTp1KtEmHoE799CpfAm7DK549V4W55KTIisMQHufyJrGvfIm6giT8pxRSzVLSQqzwP00Qv83EfLI");
+  const stripeClient = stripe(STRIPE_CLIENT_KEY);
   
   useEffect(() => {
     onChange('identificationType', value)
   }, [value])
 
   useEffect(() => {
-    if(values.number !== '' && values.expiration !== '' && values.cvv !== ''){
+    if(values.number !== '' && values.expiration !== '' && values.cvv !== '' && mercadoPagoOption!){
       createTokenPayment()
     }
   }, [values])
@@ -142,12 +144,14 @@ const ClientPaymentFormViewModel = () => {
 
   return {
     ...identificationValues,
+    mercadoPagoOption,
     cardToken,
     open,
     value,
     items,
     creditCardRef,
     identificationTypeList,
+    setMercadoPagoOption,
     onChange,
     setOpen,
     setValue,

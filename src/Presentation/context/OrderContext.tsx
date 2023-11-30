@@ -63,15 +63,17 @@ export const OrderProvider = ({children}: any) => {
     };
 
     const getOrdersByClientAndStatus = async (id_client: string, status: string) => {
-        const result = await GetByClientAndStatusOrderUseCase(id_client, status);
-        if (status === "PAGADO"){
-            setordersPayed(result);
-        } else if (status === "DESPACHADO"){
-            setOrdersDispatched(result);
-        } else if (status === "EN CAMINO"){
-            setOrdersOrdersOnTheWay(result);
-        } else if (status === "ENTREGADO"){
-            setOrdersDelivery(result);
+        if(id_client !== null && id_client !== undefined && id_client !== ''){
+            const result = await GetByClientAndStatusOrderUseCase(id_client, status);
+            if (status === "PAGADO"){
+                setordersPayed(result);
+            } else if (status === "DESPACHADO"){
+                setOrdersDispatched(result);
+            } else if (status === "EN CAMINO"){
+                setOrdersOrdersOnTheWay(result);
+            } else if (status === "ENTREGADO"){
+                setOrdersDelivery(result);
+            }
         }
     };
 

@@ -14,6 +14,7 @@ export const ProfileInfoScreen = () => {
     const { user, removeUserSession } = useViewModel();
 
     useEffect(() => {
+        console.log("AAAAA: ", user)
         if(user.id === ''){
             navigation.replace('HomeScreen')
         }
@@ -30,7 +31,6 @@ export const ProfileInfoScreen = () => {
                 style={styles.logout}
                 onPress={() => {
                     removeUserSession()
-                    navigation.replace('HomeScreen')
                 }}>
                 <Image 
                     source={require('../../../../../assets/logout.png')} 

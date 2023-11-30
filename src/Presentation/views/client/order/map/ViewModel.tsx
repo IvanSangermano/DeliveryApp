@@ -25,7 +25,7 @@ const ClientOrderMapViewModel = (order: Order) => {
     useEffect(() => {
         socket.connect()
         socket.on('connect', () => {
-            console.log("-------------SOCKET IO CONNECT----------")
+            console.log("-------- SOCKET IO CONNECTION CLIENT-------")
         })
         socket.on(`position/${order.id!}`, (data) => {
             setPosition({latitude: data.lat, longitude: data.lng})

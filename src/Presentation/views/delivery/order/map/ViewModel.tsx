@@ -32,7 +32,7 @@ const DeliveryOrderMapViewModel = (order: Order) => {
     useEffect(() => {
         socket.connect()
         socket.on('connect', () => {
-            console.log("-------- SOCKET IO CONNECTION -------")
+            console.log("-------- SOCKET IO CONNECTION DELIVERY-------")
         })
         
         const requestPermissions = async () => {

@@ -1,0 +1,1 @@
+export const STRIPE_CLIENT_KEY = 'Here goes the stripe key'
