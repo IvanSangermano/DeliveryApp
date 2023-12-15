@@ -17,7 +17,7 @@ const AdminProductUpdateViewModel = (product: Product, category: Category) => {
   const [successMessage, setSuccessMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const { update, updateWithImage } = useContext( ProductContext )
+  const { update, updateWithImage, getProducts } = useContext( ProductContext )
 
   const pickImage = async (numberImage: number) => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -67,11 +67,10 @@ const AdminProductUpdateViewModel = (product: Product, category: Category) => {
 
   const updateProduct = async () => {
     if(isValidForm()){
-
       let files = []
-      files.push(file1!)
-      files.push(file2!)
-      files.push(file3!)
+      files.push(file1! ? file1! : values.image1)
+      files.push(file2! ? file2! : values.image2)
+      files.push(file3! ? file3! : values.image3)
 
       setLoading(true)
       let response = {} as ResponseAPIDelivery
@@ -79,13 +78,13 @@ const AdminProductUpdateViewModel = (product: Product, category: Category) => {
       {
         response = await update(values)
       } else {
-        response = await updateWithImage(values, files)
+        response = await updateWithImage(values, files as any)
       }
-
       setLoading(false)
 
       if(response.success){
         setSuccessMessage(response.message)
+        getProducts(category.id!)
       }else {
         setErrorMessage(response.message)
       }

@@ -8,7 +8,6 @@ import { AxiosError } from 'axios';
 
 export class CategoryRespositoryImpl implements CategoryRespository {
     
-
     async getAll(): Promise<Category[]> {
         try {
             const response = await ApiDelivery.get<Category[]>('/categories/getAll')

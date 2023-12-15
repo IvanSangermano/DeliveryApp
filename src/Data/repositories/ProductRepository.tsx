@@ -59,17 +59,23 @@ export class ProductRepositoryImpl implements ProductRepository{
     async updateWithImage(product: Product, files: ImagePickerAsset[]): Promise<ResponseAPIDelivery> {
         try {
             let data = new FormData()
-            
-            files.forEach(file => {
-                data.append('image', {
-                    // @ts-ignore
-                    uri: file.uri,
-                    name: file.uri.split('/').pop(),
-                    type: mime.getType(file.uri)!
-                } as any)
+            files.forEach(file => { 
+                if(!!file.uri){
+                    data.append('image', {
+                        // @ts-ignore
+                        uri: file.uri,
+                        name: file.uri.split('/').pop(),
+                        type: mime.getType(file.uri)!
+                    } as any)
+                } else {
+                    data.append('image', {
+                        uri: file,
+                        name: `${Date.now()}.jpg`,
+                        type: "image/jpeg"
+                    } as any)
+                }
             })
             data.append('product', JSON.stringify(product));
-            
             const response = await ApiDeliveryForImage.put<ResponseAPIDelivery>('/products/updateWithImage', data)
             return Promise.resolve(response.data)
         } catch (error) {

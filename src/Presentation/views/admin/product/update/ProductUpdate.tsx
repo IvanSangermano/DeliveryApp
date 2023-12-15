@@ -17,7 +17,7 @@ export const AdminProductUpdateScreen = ({ navigation, route}: Props) => {
     const {name, description, price, image1, image2, image3, errorMessage, successMessage, loading, onChange, pickImage, takePhoto, updateProduct } = useViewModel(product, category)
     const [modalVisible, setModalVisible] = useState(false);
     const [numberImage, setNumberImage] = useState(1);
-
+    
     useEffect(() => {
         if(errorMessage != '') ToastAndroid.show(errorMessage, ToastAndroid.LONG)
     }, [errorMessage])
@@ -126,7 +126,7 @@ export const AdminProductUpdateScreen = ({ navigation, route}: Props) => {
                 </ScrollView>
 
                 <View style={{marginTop: 20}}>
-                    <RoundedButton text='CREAR PRODUCTO' onPress={() => updateProduct()} />
+                    <RoundedButton text='ACTUALIZAR PRODUCTO' onPress={() => updateProduct()} />
                 </View>
             
             </View>
