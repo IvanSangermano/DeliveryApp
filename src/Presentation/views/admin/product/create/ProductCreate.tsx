@@ -22,7 +22,10 @@ export const AdminProductCreateScreen = ({ navigation, route}: Props) => {
         if(errorMessage != '') ToastAndroid.show(errorMessage, ToastAndroid.LONG)
     }, [errorMessage])
     useEffect(() => {
-        if(successMessage != '') ToastAndroid.show(successMessage, ToastAndroid.LONG)
+        if(successMessage != '') {
+            ToastAndroid.show(successMessage, ToastAndroid.LONG)
+            navigation.goBack()
+        }
     }, [successMessage])
 
 

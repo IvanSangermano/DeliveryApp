@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { View, Image, Pressable, Text, TouchableOpacity } from 'react-native';
+import React, { useContext, useEffect } from 'react'
+import { View, Image, Pressable, Text, TouchableOpacity, ToastAndroid, ActivityIndicator } from 'react-native';
 import styles from './Styles'
 import useViewModel from './ViewModel'
 import CreditCard from 'react-native-credit-card-form-ui';
@@ -7,13 +7,16 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { CustomTextInput } from '../../../../components/CustomTextInput';
 import { StackScreenProps } from '@react-navigation/stack';
 import { ClientStackParamList } from '../../../../navigator/ClientStackNavigator';
+import { MyColors } from '../../../../theme/AppTheme';
+import { ShoppingBagContext } from '../../../../context/ShoppingBagContex';
 
 interface Props extends StackScreenProps<ClientStackParamList, 'ClientPaymentFormScreen'>{}
 
 export const ClientPaymentFormScreen = ({navigation, route}: Props) => {
 
-    const {open, value, items, creditCardRef, cardToken, identificationNumber, mercadoPagoOption,
+    const {open, value, items, loading, creditCardRef, cardToken, identificationNumber, mercadoPagoOption, responsePaymentStripe, 
         onChange ,setOpen, setValue, setItems, setMercadoPagoOption, handleSubmit, getIdentificationTypes} = useViewModel()
+    const { clearShoppingBag } = useContext(ShoppingBagContext)
 
     useEffect(() => {
         getIdentificationTypes()
@@ -24,6 +27,16 @@ export const ClientPaymentFormScreen = ({navigation, route}: Props) => {
             navigation.navigate('ClientPaymentInstallmentsScreen', {cardToken})
         }
     }, [cardToken])
+
+    useEffect(() => {
+        if(responsePaymentStripe.message !== '') {
+            ToastAndroid.show(responsePaymentStripe.message, ToastAndroid.LONG)
+            if(responsePaymentStripe.success == true) {
+                clearShoppingBag()
+                navigation.replace('ClientCategoryListScreen')
+            }    
+        }
+    }, [responsePaymentStripe])
 
     return (
         <View style={styles.container}>
@@ -98,6 +111,7 @@ export const ClientPaymentFormScreen = ({navigation, route}: Props) => {
                         />
                 </Pressable>
             </View>
+            {loading && <ActivityIndicator size="large" color={MyColors.primary} style={styles.loading}/>}
         </View>
     )
 }

@@ -57,6 +57,7 @@ export class CategoryRespositoryImpl implements CategoryRespository {
     async updateWithImage(category: Category, file: ImagePickerAsset): Promise<ResponseAPIDelivery> {
         try {
             let data = new FormData()
+
             data.append('image', {
                 // @ts-ignore
                 uri: file.uri,
@@ -64,7 +65,7 @@ export class CategoryRespositoryImpl implements CategoryRespository {
                 type: mime.getType(file.uri)!
             } as any)
             data.append('category', JSON.stringify(category));
-            console.log("data", data)
+
             const response = await ApiDeliveryForImage.put<ResponseAPIDelivery>('/categories/updateWithImage', data)
             return Promise.resolve(response.data)
         } catch (error) {

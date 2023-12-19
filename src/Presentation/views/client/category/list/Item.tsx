@@ -3,7 +3,6 @@ import { TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Category } from '../../../../../Domain/entities/Category';
 import { ClientStackParamList } from '../../../../navigator/ClientStackNavigator';
-import { MyColors } from '../../../../theme/AppTheme';
 
 interface Props {
     category: Category,
@@ -16,7 +15,7 @@ export const ClientCategoryItem = ({category, height, width, navigation}: Props)
   return (
     <TouchableOpacity 
         onPress={() => {
-            navigation.navigate('ClientProductListScreen', {idCategory: category.id!})
+            navigation.navigate('ClientProductListScreen', {category: category})
         }}
         style={{...styles.container, width: width, height: height}}
     >

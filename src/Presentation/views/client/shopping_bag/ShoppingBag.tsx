@@ -15,30 +15,36 @@ export const ClientShoppingBagScreen = ({navigation, route}: Props) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={shoppingBag}
-        keyExtractor={(item) => item.id!}
-        renderItem={({item}) => 
-          <ShoppingBagItem 
-            product={item} 
-            addItem={addItem}
-            subtractItem={subtractItem}
-            deleteItem={deleteItem}
-          />
-        }
-      />  
-      <View style={styles.totalToPay}>
-        <View  style={styles.totalInfo}>
-          <Text style={styles.totalText}>Total</Text>
-          <Text>${ total }</Text>
-        </View>
-        <View style={styles.buttonAdd}>
-          <RoundedButton
-            text='CONFIRMAR ORDEN'
-            onPress={() =>  navigation.navigate('ClientAddressListScreen')}
-          />
-        </View>
-      </View>
+      { shoppingBag.length > 0 ?
+        <>
+          <FlatList
+            data={shoppingBag}
+            keyExtractor={(item) => item.id!}
+            renderItem={({item}) => 
+              <ShoppingBagItem 
+                product={item} 
+                addItem={addItem}
+                subtractItem={subtractItem}
+                deleteItem={deleteItem}
+              />
+            }
+          /> 
+          <View style={styles.totalToPay}>
+            <View  style={styles.totalInfo}>
+              <Text style={styles.totalText}>Total</Text>
+              <Text>${ total }</Text>
+            </View>
+            <View style={styles.buttonAdd}>
+              <RoundedButton
+                text='CONFIRMAR ORDEN'
+                onPress={() =>  navigation.navigate('ClientAddressListScreen')}
+              />
+            </View>
+          </View>
+        </> 
+        :
+        <Text style={{fontSize:15, textAlign: 'center'}}>No hay items en el carrito de compras</Text>
+      } 
     </View>
   )
 }

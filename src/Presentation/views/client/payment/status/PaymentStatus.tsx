@@ -1,15 +1,17 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, Image } from 'react-native';
 import { ClientStackParamList } from '../../../../navigator/ClientStackNavigator';
 import styles from './Styles'
 import { RoundedButton } from '../../../../components/RoundedButton';
+import { ShoppingBagContext } from '../../../../context/ShoppingBagContex';
 
 interface Props extends StackScreenProps<ClientStackParamList, 'ClientPaymentStatusScreen'>{}
 
 export const ClientPaymentStatusScreen = ({navigation, route}: Props) => {
   
     const { paymentData } = route.params
+    const { clearShoppingBag } = useContext(ShoppingBagContext)
 
     return (
         <View style={styles.container}>
@@ -39,7 +41,14 @@ export const ClientPaymentStatusScreen = ({navigation, route}: Props) => {
             <View style={styles.button}>
                 <RoundedButton
                     text='FINALIZAR COMPRA'
-                    onPress={() => {navigation.replace('ClientCategoryListScreen')}}
+                    onPress={() => {
+                        if(paymentData.status === 'approved'){
+                            clearShoppingBag()
+                            navigation.replace('ClientCategoryListScreen')
+                        } else {
+                            navigation.replace('ClientShoppingBagScreen')
+                        }
+                    }}
                 />
             </View>
         </View>

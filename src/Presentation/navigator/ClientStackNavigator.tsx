@@ -14,10 +14,11 @@ import { ClientPaymentInstallmentsScreen } from "../views/client/payment/install
 import { ResponseMercadoPagoCardToken } from "../../Data/sources/remote/models/ResponseMercadoPagoCardToken";
 import { ClientPaymentStatusScreen } from "../views/client/payment/status/PaymentStatus";
 import { ResponseMercadoPagoPayment } from "../../Data/sources/remote/models/ResponseMercadoPagoPayment";
+import { Category } from "../../Domain/entities/Category";
 
 export type ClientStackParamList = {
     ClientCategoryListScreen: undefined,
-    ClientProductListScreen: {idCategory: string},
+    ClientProductListScreen: {category: Category},
     ClientProductDetailScreen: {product: Product},
     ClientShoppingBagScreen: undefined,
     ClientAddressListScreen: undefined,
@@ -39,7 +40,7 @@ export const ClientStackNavigator = () => {
                     component={ClientCategoryListScreen}
                     options={ ({ navigation, route }) => (
                         {
-                            title: 'Productos',
+                            title: 'Categorias',
                             headerShown: true,
                             headerRight: () => (
                                 <TouchableOpacity onPress={() => navigation.navigate('ClientShoppingBagScreen')}>
@@ -57,7 +58,7 @@ export const ClientStackNavigator = () => {
                     component={ClientProductListScreen}
                     options={ ({ navigation, route }) => (
                         {
-                            title: 'Productos',
+                            title: `${route.params.category.name}`,
                             headerShown: true,
                             headerRight: () => (
                                 <TouchableOpacity onPress={() => navigation.navigate('ClientShoppingBagScreen')}>

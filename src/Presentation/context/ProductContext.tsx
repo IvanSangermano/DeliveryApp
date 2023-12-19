@@ -29,25 +29,25 @@ export const ProductProvider = ({children}: any) => {
 
     const create = async (product: Product, files: ImagePicker.ImagePickerAsset[]): Promise<ResponseAPIDelivery> => {
         const response = await CreateProductUseCase(product, files)
-        getProducts(product.idCategory!)
+        getProducts(product.id_category!)
         return response
     }
 
     const update = async (product: Product): Promise<ResponseAPIDelivery> => {
         const response = await updateProductUseCase(product)
-        getProducts(product.idCategory!)
+        getProducts(product.id_category!)
         return response
     }
 
     const updateWithImage = async (product: Product, files: ImagePicker.ImagePickerAsset[]): Promise<ResponseAPIDelivery> => {
         const response = await updateProductWithImageUseCase(product, files)
-        getProducts(product.idCategory!)
+        getProducts(product.id_category!)
         return response
     }
 
     const remove = async (product: Product): Promise<ResponseAPIDelivery> => {
         const response = await RemoveProductUseCase(product)
-        getProducts(product.idCategory!)
+        getProducts(product.id_category!)
         return response
     }
 
@@ -58,7 +58,7 @@ export const ProductProvider = ({children}: any) => {
             create,
             updateWithImage,
             update,
-            remove
+            remove,
         }}>
             {children}
         </ProductContext.Provider>

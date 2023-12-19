@@ -34,7 +34,7 @@ export const AdminProductNavigator = ({navigation, route}: Props) => {
                 initialParams={{ category: route.params.category }}
                 options={ ({ navigation, route }) => (
                     {
-                    title: 'Productos',
+                    title: `${route.params.category.name}`,
                     headerShown: true,
                     headerRight: () => (
                         <TouchableOpacity onPress={() => navigation.navigate('AdminProductCreateScreen')}>

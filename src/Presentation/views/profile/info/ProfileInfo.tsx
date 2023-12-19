@@ -14,7 +14,6 @@ export const ProfileInfoScreen = () => {
     const { user, removeUserSession } = useViewModel();
 
     useEffect(() => {
-        console.log("AAAAA: ", user)
         if(user.id === ''){
             navigation.replace('HomeScreen')
         }

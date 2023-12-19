@@ -9,17 +9,16 @@ import { Category } from '../../../../../Domain/entities/Category';
 interface Props {
     product: Product,
     category: Category,
-    remove: (product: Product) => void
+    setModal: (bool: boolean) => void
+    setText: (text: string) => void
+    setItemRemove: (product: Product) => void
 }
 
-export const AdminProductListItem = ({product, category, remove}: Props) => {
-
+export const AdminProductListItem = ({product, category, setModal, setText, setItemRemove}: Props) => {
     const navigation = useNavigation<StackNavigationProp<ProductStackParamList>>()
     
     return (
-        <TouchableOpacity
-            // onPress={() => navigation.navigate('AdminProductNavigator', {category: category})}
-        >
+        <TouchableOpacity>
             <View style={ styles.container }>
                 <Image
                     source={{uri: product.image1}}
@@ -40,7 +39,11 @@ export const AdminProductListItem = ({product, category, remove}: Props) => {
                         />
                     </TouchableOpacity>
                     <TouchableOpacity 
-                        onPress={() => remove(product)}
+                        onPress={() => {
+                            setItemRemove(product)
+                            setText(product.name)
+                            setModal(true)
+                        }}
                     >
                         <Image
                             style={{...styles.actionImage, marginTop: 8}}

@@ -6,6 +6,6 @@ export interface Product {
     image2:         string;
     image3:         string;
     price:          number;
-    idCategory:     string | undefined;
+    id_category:     string | undefined;
     quantity?:      number;
 }

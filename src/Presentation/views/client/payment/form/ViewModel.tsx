@@ -10,6 +10,7 @@ import stripe from 'react-native-stripe-client'
 import { ShoppingBagContext } from '../../../../context/ShoppingBagContex';
 import { UserContext } from '../../../../context/UserContext';
 import { STRIPE_CLIENT_KEY } from '../../../../contants/StripeClientKey';
+import { ResponseAPIDelivery } from '../../../../../Data/sources/remote/models/ResponseApiDelivery';
 
 interface DropDownProps {
   label: string,
@@ -31,14 +32,18 @@ const ClientPaymentFormViewModel = () => {
   const [identificationTypeList, setIdentificationTypeList] = useState<IdentificationType[]>([])
   const [cardToken, setCardToken] = useState<ResponseMercadoPagoCardToken>();
   const [mercadoPagoOption, setMercadoPagoOption] = useState(true);
-  
+
+  const [responsePaymentStripe, setResponsePaymentStripe] = useState<ResponseAPIDelivery>({
+    success: false,
+    message: ''
+  });
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState<DropDownProps[]>([]);
 
   const { total, shoppingBag } = useContext(ShoppingBagContext)
   const { user } = useContext(UserContext)
-
+  const [loading, setLoading] = useState(false)
 
   const creditCardRef = useRef() as any;
   const stripeClient = stripe(STRIPE_CLIENT_KEY);
@@ -46,9 +51,9 @@ const ClientPaymentFormViewModel = () => {
   useEffect(() => {
     onChange('identificationType', value)
   }, [value])
-
+  
   useEffect(() => {
-    if(values.number !== '' && values.expiration !== '' && values.cvv !== '' && mercadoPagoOption!){
+    if(values.number !== '' && values.expiration !== '' && values.cvv !== '' && !mercadoPagoOption){
       createTokenPayment()
     }
   }, [values])
@@ -71,6 +76,7 @@ const ClientPaymentFormViewModel = () => {
   }, [identificationTypeList])
 
   const createTokenPayment = async() => {
+    setLoading(true)
     const response = await stripeClient.createToken({
       card: {
         number: values.number.replace(/\s/g, ''),
@@ -86,11 +92,12 @@ const ClientPaymentFormViewModel = () => {
         id_address: user.address?.id!,
         products: shoppingBag
       })
-
-      console.log("RESPONSE: ", JSON.stringify(result,null,3))
-
+      setLoading(false)
+      setResponsePaymentStripe({
+        success: result.success, 
+        message: result.message
+      })
     }
-
   }
 
   const getIdentificationTypes = async () => {
@@ -108,6 +115,7 @@ const ClientPaymentFormViewModel = () => {
   }, []);
 
   const createCardToken = async() => {
+    setLoading(true)
     const data: CardTokenParams = {
       card_number: values.number.replace(/\s/g, ''),
       expiration_year: values.expiration.split('/')[1],
@@ -122,6 +130,7 @@ const ClientPaymentFormViewModel = () => {
       }
     }
     const result = await CreateTokenMercadoPagoUseCase(data)
+    setLoading(false)
     if(result && result.id !== ''){
       setCardToken(result)
     }
@@ -144,6 +153,8 @@ const ClientPaymentFormViewModel = () => {
 
   return {
     ...identificationValues,
+    loading,
+    responsePaymentStripe,
     mercadoPagoOption,
     cardToken,
     open,

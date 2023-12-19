@@ -6,8 +6,12 @@ import useViewModel from './ViewModel'
 import { RoundedButton } from '../../../../components/RoundedButton';
 import { ModalPickImage } from '../../../../components/ModalPickImage';
 import { MyColors } from '../../../../theme/AppTheme';
+import { StackScreenProps } from '@react-navigation/stack';
+import { CategoryStackParamList } from '../../../../navigator/AdminCategoryNavigator';
 
-export const AdminCategoryCreateScreen = () => {
+interface Props extends StackScreenProps<CategoryStackParamList, 'AdminCategoryCreateScreen'>{}
+
+export const AdminCategoryCreateScreen = ({navigation, route}: Props) => {
 
     const {name, description, image, errorMessage, successMessage, loading, onChange, pickImage, takePhoto, createCategory } = useViewModel()
     const [modalVisible, setModalVisible] = useState(false);
@@ -16,7 +20,10 @@ export const AdminCategoryCreateScreen = () => {
         if(errorMessage != '') ToastAndroid.show(errorMessage, ToastAndroid.LONG)
     }, [errorMessage])
     useEffect(() => {
-        if(successMessage != '') ToastAndroid.show(successMessage, ToastAndroid.LONG)
+        if(successMessage != '') {
+            ToastAndroid.show(successMessage, ToastAndroid.LONG)
+            navigation.goBack()
+        }
     }, [successMessage])
 
   return (

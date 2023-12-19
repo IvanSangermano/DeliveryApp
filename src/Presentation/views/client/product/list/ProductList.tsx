@@ -8,11 +8,11 @@ import { ClientProductListItem } from './Item'
 interface Props extends StackScreenProps<ClientStackParamList, 'ClientProductListScreen'>{}
 
 export const ClientProductListScreen = ({navigation, route}: Props) => {
-    const {idCategory} = route.params
+    const {id} = route.params.category
     const {products, getProducts} = useViewModel()
 
     useEffect(() => {
-        getProducts(idCategory)
+        getProducts(id!)
     },[])
 
   return (

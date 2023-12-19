@@ -12,7 +12,7 @@ const AdminProductCreateViewModel = (category: Category) => {
     image2: '',
     image3: '',
     price: 0,
-    idCategory: category.id
+    id_category: category.id
   })
 
   const [file1, setFile1] = useState<ImagePicker.ImagePickerAsset>()
@@ -75,7 +75,7 @@ const AdminProductCreateViewModel = (category: Category) => {
       image2: '',
       image3: '',
       price: 0,
-      idCategory: category.id
+      id_category: category.id
     })
   }
 
@@ -92,7 +92,7 @@ const AdminProductCreateViewModel = (category: Category) => {
       files.push(file2!)
       files.push(file3!)
       setLoading(true)
-
+      console.log("VALUES: ", values)
       const response = await create(values, files)
       setLoading(false)
       if(response.success){

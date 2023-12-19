@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import React from 'react';
+import {Modal, StyleSheet, Text, View} from 'react-native';
 import { RoundedButton } from './RoundedButton';
 
 interface Props {
-    openGallery: () => void,
-    openCamera: () => void,
+    remove: () => void,
+    cancel: () => void,
+    textDelete: string,
     modalUseState: boolean,
     setModalUseState: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ModalPickImage = ({ openGallery, openCamera, setModalUseState, modalUseState }:Props) => {
+export const ModalConfirmDelete = ({ remove, setModalUseState, cancel, modalUseState, textDelete }:Props) => {
     return (
       <View style={styles.centeredView}>
         <Modal
@@ -21,23 +22,24 @@ export const ModalPickImage = ({ openGallery, openCamera, setModalUseState, moda
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-                <Text>Selecciona una opcion</Text>
+                <Text>¿Estas seguro de que quieres eliminar</Text>
+                <Text style={styles.textDelete}>"{textDelete}"?</Text>
                 <View style={styles.buttonContainer}>
                     <RoundedButton
                         onPress={() => {
-                            openGallery()
+                            remove()
                             setModalUseState(false)
                         }}
-                        text='Galeria'
+                        text='Eliminar'
                     />
                 </View>
                 <View style={styles.buttonContainer}>
                     <RoundedButton
                         onPress={() => {
-                            openCamera()
+                            cancel()
                             setModalUseState(false)
                         }}
-                        text='Camara'
+                        text='Cancelar'
                     />
                 </View>
 
@@ -56,12 +58,12 @@ const styles = StyleSheet.create({
         marginTop: 22,
     },
     modalView: {
-        width: 250,
-        height: 250,
+        width: 300,
+        height: 210,
         margin: 20,
         backgroundColor: 'white',
         borderRadius: 20,
-        paddingTop: 35,
+        paddingTop: 25,
         paddingLeft: 25,
         paddingRight: 25,
         alignItems: 'center',
@@ -73,6 +75,11 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
+    },
+    textDelete:{
+        marginTop: 2,
+        fontSize: 15,
+        fontWeight: 'bold' 
     },
     button: {
         borderRadius: 20,

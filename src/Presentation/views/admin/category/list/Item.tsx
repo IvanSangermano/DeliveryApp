@@ -7,10 +7,12 @@ import { CategoryStackParamList } from '../../../../navigator/AdminCategoryNavig
 
 interface Props {
     category: Category,
-    remove: (id: string) => void
+    setModal: (bool: boolean) => void
+    setText: (text: string) => void
+    setItemRemove: (id: string) => void
 }
 
-export const AdminCategoryListItem = ({category, remove}: Props) => {
+export const AdminCategoryListItem = ({category, setModal, setText, setItemRemove}: Props) => {
 
     const navigation = useNavigation<StackNavigationProp<CategoryStackParamList>>()
 
@@ -39,7 +41,12 @@ export const AdminCategoryListItem = ({category, remove}: Props) => {
                         />
                     </TouchableOpacity>
                     <TouchableOpacity 
-                        onPress={() => remove(category.id!)}
+                        onPress={() => {
+                            setItemRemove(category.id!)
+                            setText(category.name)
+                            setModal(true)
+                        }
+                        }
                     >
                         <Image
                             style={{...styles.actionImage, marginTop: 8}}

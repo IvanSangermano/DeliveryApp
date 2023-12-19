@@ -65,6 +65,13 @@ const ClientPaymentFormStyles = StyleSheet.create({
         width: 60,
         height: 60,
         alignSelf: 'flex-end'
+    },
+    loading: {
+        position: 'absolute',
+        bottom: 0,
+        top: 0,
+        left: 0,
+        right: 0
     }
 })
 

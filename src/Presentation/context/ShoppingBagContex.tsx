@@ -10,6 +10,7 @@ export interface ShoppingBagContextProps {
     getShoppingBag(): Promise<void>,
     saveItem(product: Product): Promise<void>,
     deleteItem(product: Product): Promise<void>,
+    clearShoppingBag(): Promise<void>
 }
 
 export const ShoppingBagContext = createContext({} as ShoppingBagContextProps)
@@ -59,6 +60,11 @@ export const ShoppingBagProvider = ({children}: any) => {
         getShoppingBag()
     }
 
+    const clearShoppingBag = async (): Promise<void> => {
+        await SaveShoppingBagLocalUseCase([])
+        getShoppingBag()
+    }
+
     return (
         <ShoppingBagContext.Provider value={{
             shoppingBag,
@@ -66,7 +72,8 @@ export const ShoppingBagProvider = ({children}: any) => {
             getTotal,
             getShoppingBag,
             saveItem,
-            deleteItem
+            deleteItem,
+            clearShoppingBag
         }}
         >
             {children}
